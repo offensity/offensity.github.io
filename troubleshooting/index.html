@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Troubleshooting - Offensity Prime</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Troubleshooting";
+    var mkdocs_page_input_path = "troubleshooting.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Offensity Prime</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">First Steps</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Welcome to Offensity Prime</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../getting_started/">Getting Started</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Troubleshooting</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Troubleshooting</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#proxy-settings">Proxy settings</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#docker-hub-login">Docker Hub login</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#starting-and-stopping">Starting and Stopping</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Offensity Prime</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Troubleshooting &raquo;</li>
+        
+      
+    
+    <li>Troubleshooting</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="troubleshooting">Troubleshooting</h1>
+<h2 id="proxy-settings">Proxy settings</h2>
+<p>You must specify your proxy server in two places:</p>
+<ul>
+<li>Docker daemon for pulling base-images from the docker registry</li>
+<li>see https://docs.docker.com/config/daemon/systemd/#httphttps-proxy</li>
+<li>Offensity bootstrap container for internet access of Offensity Prime</li>
+<li>add following settings to the <code>bootstrap</code> section of <code>settings.yml</code> </li>
+</ul>
+<pre><code class="language-yaml">bootstrap:
+  environment:
+    NO_PROXY: &quot;.offensity&quot;  # do not remove this line
+    HTTP_PROXY: &quot;http://user:pass@proxy.example.com:3128&quot;
+    HTTPS_PROXY: &quot;https://user:pass@proxy.example.com:3219&quot;
+</code></pre>
+<h2 id="docker-hub-login">Docker Hub login</h2>
+<p>You might run into rate limit restrictions of Docker Hub. Login to Docker Hub to increase your rate limits.</p>
+<p>Your docker hub auth token needs to be added to <code>settings.yml</code>.
+The auth token can be acquired by issuing <code>docker login</code> and reading the token from <code>~/.docker/config.json</code>.</p>
+<pre><code class="language-shell">docker login
+cat ~/.docker/config.json
+{
+  &quot;auths&quot;: {
+    &quot;https://index.docker.io/v1/&quot;: {
+      &quot;auth&quot;: &quot;your_docker_auth_token&quot;
+    }
+  }
+}
+</code></pre>
+<pre><code class="language-yaml">bootstrap:
+  DOCKER_HUB_AUTH_TOKEN: your_docker_auth_token
+</code></pre>
+<h2 id="starting-and-stopping">Starting and Stopping</h2>
+<p>An example systemd service unit is provided in <code>offensity.service</code>.
+This service starts and stops Offensity via docker-compose.</p>
+<p>Following commands configure the systemd service:</p>
+<pre><code class="language-shell">mkdir -p /opt/offensity/
+cp docker-compose.yml /opt/opffensity/
+cp offensity.service /etc/systemd/system/
+
+systemctl daemon-reload
+systemctl start offensity.service
+systemctl enable offensity.service
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../getting_started/" class="btn btn-neutral" title="Getting Started"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../getting_started/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

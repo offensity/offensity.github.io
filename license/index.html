@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Troubleshooting Setup - Offensity Prime</title>
+  <title>License - Offensity Prime</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Troubleshooting Setup";
-    var mkdocs_page_input_path = "troubleshooting_setup.md";
+    var mkdocs_page_name = "License";
+    var mkdocs_page_input_path = "license.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -54,18 +54,8 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Troubleshooting</span></p>
-                <ul class="current">
-                    <li class="toctree-l1"><a class="reference internal" href="../troubleshooting_reports/">Troubleshooting Reports</a>
-                    </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Troubleshooting Setup</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#proxy-settings">Proxy settings</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#docker-hub-login">Docker Hub login</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#starting-and-stopping">Starting and Stopping</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../troubleshooting/">Troubleshooting</a>
                     </li>
                 </ul>
       </div>
@@ -88,12 +78,8 @@
     <li><a href="..">Docs</a> &raquo;</li>
     
       
-        
-          <li>Troubleshooting &raquo;</li>
-        
-      
     
-    <li>Troubleshooting Setup</li>
+    <li>License</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -105,61 +91,33 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="troubleshooting-setup">Troubleshooting Setup</h1>
-<h2 id="proxy-settings">Proxy settings</h2>
-<p>You must specify your proxy server in two places:</p>
-<ul>
-<li>Docker daemon for pulling base-images from the docker registry</li>
-<li>see https://docs.docker.com/config/daemon/systemd/#httphttps-proxy</li>
-<li>Offensity bootstrap container for internet access of Offensity Prime</li>
-<li>add following settings to the <code>bootstrap</code> section of <code>settings.yml</code> </li>
-</ul>
-<pre><code class="language-yaml">bootstrap:
-  environment:
-    NO_PROXY: &quot;.offensity&quot;  # do not remove this line
-    HTTP_PROXY: &quot;http://user:pass@proxy.example.com:3128&quot;
-    HTTPS_PROXY: &quot;https://user:pass@proxy.example.com:3219&quot;
-</code></pre>
-<h2 id="docker-hub-login">Docker Hub login</h2>
-<p>You might run into rate limit restrictions of Docker Hub. Login to Docker Hub to increase your rate limits.</p>
-<p>Your docker hub auth token needs to be added to <code>settings.yml</code>.
-The auth token can be acquired by issuing <code>docker login</code> and reading the token from <code>~/.docker/config.json</code>.</p>
-<pre><code class="language-shell">docker login
-cat ~/.docker/config.json
-{
-  &quot;auths&quot;: {
-    &quot;https://index.docker.io/v1/&quot;: {
-      &quot;auth&quot;: &quot;your_docker_auth_token&quot;
-    }
-  }
-}
-</code></pre>
-<pre><code class="language-yaml">bootstrap:
-  DOCKER_HUB_AUTH_TOKEN: your_docker_auth_token
-</code></pre>
-<h2 id="starting-and-stopping">Starting and Stopping</h2>
-<p>An example systemd service unit is provided in <code>offensity.service</code>.
-This service starts and stops Offensity via docker-compose.</p>
-<p>Following commands configure the systemd service:</p>
-<pre><code class="language-shell">mkdir -p /opt/offensity/
-cp docker-compose.yml /opt/opffensity/
-cp offensity.service /etc/systemd/system/
-
-systemctl daemon-reload
-systemctl start offensity.service
-systemctl enable offensity.service
-</code></pre>
+                <h2 id="acceptance">Acceptance</h2>
+<p>In order to get any license under these terms, you must agree to them as both strict obligations and conditions to all your licenses.</p>
+<h2 id="copyright-license">Copyright License</h2>
+<p>The licensor grants you a copyright license for the software limited to any permitted purpose.</p>
+<h2 id="noncommercial-purposes">Noncommercial Purposes</h2>
+<p>Any noncommercial use such as personal use or internal business use is a permitted purpose.</p>
+<h2 id="personal-uses">Personal Uses</h2>
+<p>Personal use for research, experiment, and testing for the benefit of public knowledge, personal study, private entertainment, hobby projects, amateur pursuits, or religious observance, without any anticipated commercial application, is use for a permitted purpose.</p>
+<h2 id="internal-business-use">Internal Business Use</h2>
+<p>Use of the software for the internal business operations of you and your company is use for a permitted purpose.</p>
+<h2 id="no-other-rights">No Other Rights</h2>
+<p>These terms do not allow you to sublicense or transfer any of your licenses to anyone else.Only licensor may grant licences, similar or other rights on the software  to anyone else.  These terms do not imply any other licenses.</p>
+<h2 id="no-liability">No Liability</h2>
+<p>The software is provided for free. To the extent permitted by Applicable Law, the software comes as is, without any warranty or condition, and the licensor will not be liable to you for any damages arising out of these terms or the use or nature of the software. law.</p>
+<h2 id="applicable-law-and-jurisdiction">Applicable law and jurisdiction</h2>
+<p>These license terms shall be exclusively governed by Austrian Law. It is agreed that the place of jurisdication shall exclusively be the court in Vienna with jurisdiction ratione materiae</p>
+<h2 id="definitions">Definitions</h2>
+<p>The <strong>licensor</strong> is the individual or entity offering these terms, and the <strong>software</strong> is the software the licensor makes available under these terms.</p>
+<p><strong>You</strong> refers to the individual or entity agreeing to these terms.</p>
+<p><strong>Your company</strong> is any legal entity, sole proprietorship, or other kind of organization that you work for, plus all organizations that have control over, are under the control of, or are under common control with that organization.</p>
+<p><strong>Control</strong> means ownership of substantially all the assets of an entity, or the power to direct its management and policies by vote, contract, or otherwise.  Control can be direct or indirect.</p>
+<p><strong>Your licenses</strong> are all the licenses granted to you for the software under these terms.</p>
+<p><strong>Use</strong> means anything you do with the software requiring one of your licenses.</p>
               
             </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="../troubleshooting_reports/" class="btn btn-neutral" title="Troubleshooting Reports"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
@@ -182,8 +140,6 @@ systemctl enable offensity.service
   <div class="rst-versions" role="note" aria-label="versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
-    
-      <span><a href="../troubleshooting_reports/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
   </span>

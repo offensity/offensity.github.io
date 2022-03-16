@@ -63,9 +63,7 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Troubleshooting</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../troubleshooting_reports/">Troubleshooting Reports</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../troubleshooting_setup/">Troubleshooting Setup</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../troubleshooting/">Troubleshooting</a>
                     </li>
                 </ul>
       </div>
@@ -111,7 +109,7 @@
 <li>Ubuntu</li>
 <li>16G RAM</li>
 <li>4 CPU cores</li>
-<li>300G SSD HD</li>
+<li>300G SSD</li>
 <li>Internet access</li>
 <li>docker 20.10.0 or above (see <a href="https://docs.docker.com/engine/install/">Install Docker Engine</a>)</li>
 <li>docker-compose (see <a href="https://docs.docker.com/compose/install/">Install Docker Compose</a>)</li>
@@ -121,10 +119,11 @@
 cd prime
 docker-compose up -d --build
 </code></pre>
+<p>The software is provided under this <a href="../license/">license</a>.</p>
 <p>Multiple docker images will be downloaded during the setup process.
 It might take some time until the setup is finished (mainly depending on your internet connection).
 Check the setup status using <code>docker logs prime_bootstrap_1</code>.</p>
-<p>If you run into errors refer to <a href="../troubleshooting_setup/">Troubleshooting</a>.</p>
+<p>If you run into errors refer to <a href="../troubleshooting/">Troubleshooting</a>.</p>
 <p>After setup, you can access Offensity Prime via <a href="http://localhost:8080/">http://localhost:8080/</a>.
 You can set your initial user in the web interface. Please do not expose your installation to the Network as long as you have not set your initial user due to security reasons.</p>
 <h2 id="expose-offensity-prime-to-the-network">Expose Offensity Prime to the Network</h2>
@@ -155,7 +154,7 @@ systemctl restart nginx
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../troubleshooting_reports/" class="btn btn-neutral float-right" title="Troubleshooting Reports">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../troubleshooting/" class="btn btn-neutral float-right" title="Troubleshooting">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href=".." class="btn btn-neutral" title="Welcome to Offensity Prime"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -187,7 +186,7 @@ systemctl restart nginx
       <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../troubleshooting_reports/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../troubleshooting/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
